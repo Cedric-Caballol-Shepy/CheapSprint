@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.univ_smb.cheapsprint">
+    <!--
+    #####################################################
+    ### APPLICATION PERMISSION
+    ####################################################
+    -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Network permission -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- GPS permission -->
+    <!--<uses-permission android:name="android.permission.CAMERA" /> --> <!-- Camera permission -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Memory write permission -->
 
+    <!--
+       ####################################################
+       ### APPLICATION FEATURES //for only mobile target
+       ####################################################
+    -->
+    <!--
+        - Needed only if your app targets Android 5.0 (API level 21) or higher.
+        - Necessary for GPS
+     -->
+    <uses-feature android:name="android.hardware.location.gps" /> <!-- GPS FEATURE -->
+    <uses-feature android:name="android.hardware.camera2" /> <!-- Camera FEATURE -->
+
+    <!--
+        #####################################################
+        ### APPLICATION
+        #####################################################
+    -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,13 +35,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        <activity android:name=".activities.ScanListActivity" />
+        <activity android:name=".activities.SplashActivity" />
 
+        <!-- Listen GPS or Network change -->
+        <receiver
+            android:name=".receivers.MyReceiverBroadcast"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.location.PROVIDERS_CHANGED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+    </application>
 </manifest>
