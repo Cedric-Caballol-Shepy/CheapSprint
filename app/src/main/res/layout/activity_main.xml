@@ -17,6 +17,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
+            android:id="@+id/idBtnCollab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btn_submit_clicked"
+            android:text="Soumettre des prix" />
+
+        <Button
             android:id="@+id/idBtnArticle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

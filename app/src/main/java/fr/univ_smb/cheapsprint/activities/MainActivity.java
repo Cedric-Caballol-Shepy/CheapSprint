@@ -70,4 +70,8 @@ public class MainActivity extends Activity {
     }
 
 
+    public void btn_submit_clicked(View view) {
+        Intent intent = new Intent(this, CollaborativeActivity.class);
+        startActivity(intent);
+    }
 }
