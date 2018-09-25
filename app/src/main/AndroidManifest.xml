@@ -44,7 +44,7 @@
         </activity>
         <activity android:name=".activities.ScanListActivity" />
         <activity android:name=".activities.SplashActivity" />
-        <activity android:name=".activities.CollaborativeActivity" />
+        <activity android:name=".activities.ShoppingActivity" />
 
         <!-- Listen GPS or Network change -->
         <receiver

@@ -53,11 +53,12 @@ public class MainActivity extends Activity {
     // BUTTON EVENTS
     //////////////////////////////////////////////
     public void btn_scan_list_clicked(View view) {
-        //Intent intent = new Intent(this, ScanListActivity.class);
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent intent = new Intent(this, ShoppingActivity.class);
+        startActivity(intent);
+        /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-        }
+        }*/
 
     }
 

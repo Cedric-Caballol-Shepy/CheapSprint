@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text='Ce service vous permet de créer votre liste de courses juste en parlant à votre téléphone. Maintenez le bouton appuyé et parlez en séparant vos articles par le mot "arobase" !'
+        android:layout_alignParentLeft="true" />
+
+    <ListView
+        android:id="@+id/idShoppingListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textView"
+        android:layout_above="@+id/imageButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@android:color/white"
+        android:onClick="btn_shopping_micro_clicked"
+        android:scaleType="fitCenter"
+        android:src="@drawable/microphone"
+        android:layout_alignParentLeft="true" />
+
+</RelativeLayout>

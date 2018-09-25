@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="btn_scan_list_clicked"
-            android:text="@string/btn_scan_list" />
+            android:text="@string/btn_shopping" />
 
         <Button
             android:id="@+id/idBtnConfig"
