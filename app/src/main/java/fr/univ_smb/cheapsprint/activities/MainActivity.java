@@ -6,7 +6,6 @@ import android.content.IntentFilter;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
 
@@ -68,11 +67,20 @@ public class MainActivity extends Activity {
 
     public void btn_tools_clicked(View view) {
         Toast.makeText(this, "Button not ready", Toast.LENGTH_SHORT).show();
+        /**Intent intent = new Intent(this, TestActivity.class);
+        startActivity(intent);*/
     }
 
 
     public void btn_submit_clicked(View view) {
-        Intent intent = new Intent(this, CollaborativeActivity.class);
-        startActivity(intent);
+        Toast.makeText(this, "Button not ready", Toast.LENGTH_SHORT).show();
+        /**Intent intent = new Intent(this, CollaborativeActivity.class);
+        startActivity(intent);*/
+    }
+
+    public void btn_exit_clicked(View view) {
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
     }
 }

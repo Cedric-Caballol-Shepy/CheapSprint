@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import fr.univ_smb.cheapsprint.R;
@@ -23,6 +23,7 @@ import fr.univ_smb.cheapsprint.adapters.ShoppingAdapter;
 public class ShoppingActivity extends Activity {
     private ListView listView;
     private ArrayList<String> list;
+    private static final String VALIDER_PROD = "valide";
     private static final int REQ_CODE_SPEECH_INPUT = 100;
 
     @Override
@@ -32,8 +33,13 @@ public class ShoppingActivity extends Activity {
 
         listView = findViewById(R.id.idShoppingListView);
         list = new ArrayList<>();
-        listView.setAdapter(new ShoppingAdapter(this, list));
+        listView.setAdapter(new ShoppingAdapter(this, list,listView));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+            }
+        });
     }
 
     public void btn_shopping_micro_clicked(View view) {
@@ -64,7 +70,7 @@ public class ShoppingActivity extends Activity {
                     //traitement texte
                     if(result.get(0).length() > 0) {
                         traitementTexte(result);
-                        listView.setAdapter(new ShoppingAdapter(this, list));
+                        listView.setAdapter(new ShoppingAdapter(this, list,listView));
                     }
                 }
                 break;
@@ -76,12 +82,13 @@ public class ShoppingActivity extends Activity {
         String[] mots = result.get(0).split(" ");
         String produit = new String();
         for (String s : mots) {
-            if (s.equals("arobase")) {
+            if (s.equals(VALIDER_PROD) && !s.isEmpty()) {
                 list.add(produit);
                 produit = "";
             }
             else {
-                produit += " " + s;
+                if(!s.isEmpty())
+                    produit += " " + s;
             }
         }
         list.add(produit);

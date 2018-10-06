@@ -102,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Scanner un article"
+                        android:text="scanner un article"
                         android:textColor="@android:color/white" />
                 </LinearLayout>
             </TableRow>
@@ -135,7 +135,7 @@
                         android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Enoncer une liste"
+                        android:text="TextView"
                         android:textColor="@android:color/white" />
                 </LinearLayout>
 
@@ -160,7 +160,7 @@
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mes listes de courses"
+                        android:text="TextView"
                         android:textColor="@android:color/white" />
                 </LinearLayout>
             </TableRow>
