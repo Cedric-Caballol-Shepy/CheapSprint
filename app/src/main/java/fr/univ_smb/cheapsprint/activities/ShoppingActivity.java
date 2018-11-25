@@ -100,23 +100,23 @@ public class ShoppingActivity extends Activity {
 
     private void traitementTexte(ArrayList<String> result){
         String[] mots = result.get(0).split(" ");
-        String produit = new String();
+        StringBuilder produit = new StringBuilder();
         for (String s : mots){
-            if(produit.isEmpty() && !s.equals(VALIDER_PROD)){
-                produit += s +" ";
+            if((produit.length() == 0) && !s.equals(VALIDER_PROD)){
+                produit.append(s).append(" ");
             }
-            else if(!produit.isEmpty()){
+            else if(produit.length() > 0){
                 if(s.equals(VALIDER_PROD)){
-                    list.add(produit);
-                    produit = "";
+                    list.add(produit.toString());
+                    produit = new StringBuilder();
                 }
                 else{
-                    produit += s +" ";
+                    produit.append(s).append(" ");
                 }
             }
         }
-        if(!produit.isEmpty() && !produit.equals(VALIDER_PROD))
-            list.add(produit);
+        if((produit.length() > 0) && !produit.toString().equals(VALIDER_PROD))
+            list.add(produit.toString());
     }
 
     public void btn_shopping_save_clicked(View view){
@@ -134,7 +134,7 @@ public class ShoppingActivity extends Activity {
                         boolean isFileCreated = FileSaveHandler.create(context, nomNouvelleListe, jsonList);
                         if (isFileCreated && FileSaveHandler.isFilePresent(context, nomNouvelleListe)) {
                             ///TODO : (finir partie serveur) ATTENTION LA LIGNE DE CODE SUIVANTE FAIT PLANTER L'APPLI CAR PARTIE SERVEUR PAS ENCORE EN PLACE
-                            (new ScanListTask(context, jsonList)).execute();
+                            //(new ScanListTask(context, jsonList)).execute();
                             Toast.makeText(getApplication(), "Liste " + nomNouvelleListe + " sauvegardée !", Toast.LENGTH_SHORT).show();
                         }
                         else
