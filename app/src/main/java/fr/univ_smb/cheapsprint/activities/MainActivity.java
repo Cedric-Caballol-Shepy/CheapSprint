@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
     //////////////////////////////////////////////
     public void btn_scan_list_clicked(View view) {
         Intent intent = new Intent(this, ShoppingActivity.class);
+        intent.putExtra("NOMLISTE", "");
         startActivity(intent);
         /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
@@ -61,8 +62,15 @@ public class MainActivity extends Activity {
 
     }
 
+    public void btn_my_lists_clicked(View view){
+        Intent intent = new Intent(this, MyListsActivity.class);
+        startActivity(intent);
+    }
+
     public void btn_scan_article_clicked(View view) {
-        Toast.makeText(this, "Button not ready", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Button not ready", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ScanActivity.class);
+        startActivity(intent);
     }
 
     public void btn_tools_clicked(View view) {

@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fr.univ_smb.cheapsprint">
+
     <!--
     #####################################################
     ### APPLICATION PERMISSION
     ####################################################
     -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Network permission -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Network INFORMATION permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- GPS permission -->
-    <!--<uses-permission android:name="android.permission.CAMERA" /> --> <!-- Camera permission -->
+    <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
+    <!-- Camera permission -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Memory write permission -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!--
        ####################################################
@@ -19,10 +23,10 @@
     <!--
         - Needed only if your app targets Android 5.0 (API level 21) or higher.
         - Necessary for GPS
-     -->
+    -->
     <uses-feature android:name="android.hardware.location.gps" /> <!-- GPS FEATURE -->
-    <uses-feature android:name="android.hardware.camera2" /> <!-- Camera FEATURE -->
-
+    <uses-feature android:name="android.hardware.camera2" />
+    <!-- Camera FEATURE -->
     <!--
         #####################################################
         ### APPLICATION
@@ -35,18 +39,31 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity">
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ScanListActivity" />
-        <activity android:name=".activities.SplashActivity" />
-        <activity android:name=".activities.ShoppingActivity" />
-        <activity android:name=".activities.TestActivity" android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".activities.ScanListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SplashActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ShoppingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.TestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MyListsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.ScanActivity"/>
 
         <!-- Listen GPS or Network change -->
         <receiver
@@ -59,4 +76,5 @@
             </intent-filter>
         </receiver>
     </application>
+
 </manifest>
