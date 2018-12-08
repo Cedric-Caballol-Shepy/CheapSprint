@@ -3,9 +3,11 @@ package fr.univ_smb.cheapsprint.activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
@@ -24,10 +26,6 @@ import fr.univ_smb.cheapsprint.adapters.ShoppingAdapter;
 import fr.univ_smb.cheapsprint.tasks.ScanListTask;
 import fr.univ_smb.cheapsprint.utilities.FileSaveHandler;
 
-
-/**
- *
- */
 public class ShoppingActivity extends Activity {
     private ListView listView;
     private ArrayList<String> list;
@@ -35,8 +33,6 @@ public class ShoppingActivity extends Activity {
     private static final String VALIDER_PROD = "valide";
     private static final int REQ_CODE_SPEECH_INPUT = 100;
     private final Context context = this;
-    String nomListe;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,27 +41,40 @@ public class ShoppingActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         listView = findViewById(R.id.idShoppingListView);
         list = new ArrayList<>();
-        nomListe = extras.getString("NOMLISTE");
-        //le texte dans l'extra c'est le nom de la liste si on vient de
-        //                                                  ActivityMyLists/ShoppingListsAdapter
-        if(!nomListe.equals("") && FileSaveHandler.isFilePresent(context, nomListe)) {
-           Intent intent = new Intent("ENDACTIVITY");
-           sendBroadcast(intent);
-           Log.i("json : ", FileSaveHandler.read(context, nomListe));
-           String[] mots = FileSaveHandler.read(context, nomListe).split("\"");
-           for(int i = 1 ; i<mots.length-1 ; i++)
-               if(!mots[i].equals(","))
-                    list.add(mots[i]);
+        if(extras != null) {
+            if(extras.getStringArrayList("LISTE") != null)
+                list = extras.getStringArrayList("LISTE");
+            //LISTE fait référence à la liste de produits si on vient de ShoppingDetailsActivity
+
+            String nomListe = extras.getString("NOMLISTE");
+            //NOMLISTE fait référence au nom de la liste si on vient de
+            //                                               ActivityMyLists/ShoppingListsAdapter
+
+            if (nomListe != null && !nomListe.equals("") && FileSaveHandler.isFilePresent(context, nomListe)) {
+                String[] mots = FileSaveHandler.read(context, nomListe).split("\"");
+                for (int i = 1; i < mots.length - 1; i++)
+                    if (!mots[i].equals(","))
+                        list.add(mots[i]);
+            }
         }
         adapter = new ShoppingAdapter(this,list, listView);
-        //listView.setAdapter(new ShoppingAdapter(this, list,listView));
         listView.setAdapter(adapter);
+        Intent intent = new Intent("ENDACTIVITY");
+        sendBroadcast(intent);
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if(action.equals("ENDACTIVITY"))
+                    finish();
+            }
+        };
+        registerReceiver(broadcastReceiver,new IntentFilter("ENDACTIVITY"));
     }
 
     public void btn_shopping_micro_clicked(View view) {
         //https://stacktips.com/tutorials/android/speech-to-text-in-android
         startVoiceInput();
-        Log.i("test :", "test");
     }
 
     private void startVoiceInput() {
@@ -133,8 +142,6 @@ public class ShoppingActivity extends Activity {
                         String jsonList = new Gson().toJson(list);
                         boolean isFileCreated = FileSaveHandler.create(context, nomNouvelleListe, jsonList);
                         if (isFileCreated && FileSaveHandler.isFilePresent(context, nomNouvelleListe)) {
-                            ///TODO : (finir partie serveur) ATTENTION LA LIGNE DE CODE SUIVANTE FAIT PLANTER L'APPLI CAR PARTIE SERVEUR PAS ENCORE EN PLACE
-                            //(new ScanListTask(context, jsonList)).execute();
                             Toast.makeText(getApplication(), "Liste " + nomNouvelleListe + " sauvegardée !", Toast.LENGTH_SHORT).show();
                         }
                         else
@@ -144,6 +151,18 @@ public class ShoppingActivity extends Activity {
                 .setNegativeButton("Annuler", null)
                 .create();
         dialog.show();
+    }
+
+    public void btn_shopping_details_clicked(View view){
+        //TODO : 2 prochaines lignes à supprimer après tests, c'est pas ici qu'on veut ça mais dans ShoppingDetailsAdapter
+        /*
+        String jsonList = new Gson().toJson(list);
+       (new ScanListTask(context, jsonList)).execute();
+       */
+
+        Intent intent = new Intent(this, ShoppingDetailsActivitiy.class);
+        intent.putExtra("LISTE", list);
+        startActivity(intent);
     }
 
 }

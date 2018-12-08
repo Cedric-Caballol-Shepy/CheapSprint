@@ -58,7 +58,7 @@
             android:name=".activities.ShoppingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.TestActivity"
+            android:name=".activities.ShoppingDetailsActivitiy"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.MyListsActivity"

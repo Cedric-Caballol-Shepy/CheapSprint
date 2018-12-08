@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
 
     public void btn_tools_clicked(View view) {
         Toast.makeText(this, "Button not ready", Toast.LENGTH_SHORT).show();
-        /**Intent intent = new Intent(this, TestActivity.class);
+        /**Intent intent = new Intent(this, .class);
         startActivity(intent);*/
     }
 

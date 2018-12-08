@@ -1,7 +1,6 @@
 package fr.univ_smb.cheapsprint.adapters;
 
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,17 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.univ_smb.cheapsprint.R;
 import fr.univ_smb.cheapsprint.activities.ShoppingActivity;
-import fr.univ_smb.cheapsprint.helpers.ViewHolder;
+import fr.univ_smb.cheapsprint.helpers.ViewHolderShopping;
 import fr.univ_smb.cheapsprint.utilities.FileSaveHandler;
 
 public class ShoppingListsAdapter extends ArrayAdapter<String> {
@@ -44,9 +40,9 @@ public class ShoppingListsAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // Get text from his position
-        final String str = getItem(position);
+        final String listName = getItem(position);
         // Get the edit text produit
-        ViewHolder holder = new ViewHolder();
+        ViewHolderShopping holder = new ViewHolderShopping();
 
         // Bind item with item view
         if (convertView == null) {
@@ -56,11 +52,11 @@ public class ShoppingListsAdapter extends ArrayAdapter<String> {
             holder.button = convertView.findViewById(R.id.idItemListsShoppingButton);
             convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            holder = (ViewHolderShopping) convertView.getTag();
         }
 
 
-        holder.textView.setText(str); //to set list name
+        holder.textView.setText(listName); //to set list name
         holder.textView.setId(position);
 
         holder.button.setOnClickListener(new View.OnClickListener() {
@@ -92,13 +88,12 @@ public class ShoppingListsAdapter extends ArrayAdapter<String> {
                 d.show();
             }
         });
-        final ViewHolder finalHolder = holder;
+        final ViewHolderShopping finalHolder = holder;
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Nom liste : ", ""+finalHolder.textView.getText());
                 Intent intent = new Intent(context, ShoppingActivity.class);
-                intent.putExtra("NOMLISTE", str);
+                intent.putExtra("NOMLISTE", listName);
                 context.startActivity(intent);
             }
         });

@@ -6,10 +6,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
@@ -24,12 +27,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ScanListTask extends AsyncTask<Void, Void, String> {
     private Context context;
@@ -63,52 +80,37 @@ public class ScanListTask extends AsyncTask<Void, Void, String> {
      */
 
     protected String doInBackground(Void... params) {
-        String url = "http://80.211.56.41:8008/?api=prices/cheap";
-        HttpPost request = new HttpPost(url);
-        StringEntity param = null;
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        JSONObject json = new JSONObject();
+        String response = null;
         try {
-            json.put("data", data);
-            param = new StringEntity("data" + data, "utf-8");
-            Log.i("data", json.toString());
-            request.addHeader("content-type", "application/x-www-form-urlencoded");
-            request.setEntity(param);
-            BasicResponseHandler handler = new BasicResponseHandler();
-            String response = httpClient.execute(request, handler);
-            Log.e("response", response);
-            return response;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            URL url = new URL("https://raw.githubusercontent.com/sirambd/application_android/master/plombierDbbJson.json");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            Log.i("AsyncTask","Envoie requete GET");
+            //conn.setDefaultUseCaches(false);
+            conn.setConnectTimeout(5000);
+            //conn.setRequestMethod("GET");
+            conn.connect();
+            Log.i("AsyncTask","Reception requete GET");
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            Log.i("AsyncTask","Récupération Contenu InputStream");
+            response = convertStreamToString(in);
+            Log.w("AsyncTask data receve",response);
+            conn.disconnect();
+
+        } catch (MalformedURLException e) {
+            //e.printStackTrace();
+            Log.e("INTERNET","MalformedURLException: "+e.getMessage());
+        } catch (ProtocolException e) {
+            //e.printStackTrace();
+            Log.e("INTERNET","ProtocolException: "+e.getMessage());
         } catch (IOException e) {
+            //e.printStackTrace();
+            Log.e("INTERNET","IOException: "+e.getMessage());
             e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (Exception e) {
+            //e.printStackTrace();
+            Log.e("INTERNET","Exception: "+e.getMessage());
             e.printStackTrace();
         }
-
-        /*String url = "http://80.211.56.41:8008/?api=prices/cheap";
-        Map<String, String> param = new HashMap();
-        param.put("data", data);
-        JSONObject parameters = new JSONObject(param);
-        try {
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
-                    (Request.Method.POST, url, parameters.toJSONArray(parameters.names()), new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            Log.e("response", response.toString());
-                        }
-                    },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.e("error", error.getMessage());
-                                }
-                            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
         return null;
     }
 
@@ -124,6 +126,35 @@ public class ScanListTask extends AsyncTask<Void, Void, String> {
      * @see #onCancelled(Object)
      */
     protected void onPostExecute(String result) {
-        Log.e("result", result);
+        super.onPostExecute(result);
+        if(result != null)
+            Log.e("resultAsync", result);
+    }
+
+    /**
+     * Converti un InputStream en String
+     * @param in
+     * @return
+     */
+    public static String convertStreamToString(InputStream in) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        try {
+            while ((line=reader.readLine()) != null){
+                sb.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            //e.printStackTrace();
+            Log.e("Lecture","Impossible");
+        } finally {
+            try {
+                in.close();
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
     }
 }

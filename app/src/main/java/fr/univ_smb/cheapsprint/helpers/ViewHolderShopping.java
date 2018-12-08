@@ -4,8 +4,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class ViewHolder {
-    public EditText editText;
+public class ViewHolderShopping {
     public Button button;
+    public EditText editText;
     public TextView textView;
 }

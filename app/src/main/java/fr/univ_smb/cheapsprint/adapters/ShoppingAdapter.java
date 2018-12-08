@@ -1,15 +1,11 @@
 package fr.univ_smb.cheapsprint.adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -18,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univ_smb.cheapsprint.R;
-import fr.univ_smb.cheapsprint.helpers.ViewHolder;
+import fr.univ_smb.cheapsprint.helpers.ViewHolderShopping;
 
 public class ShoppingAdapter extends ArrayAdapter<String> {
      private ArrayList<String> list;
@@ -43,8 +39,8 @@ public class ShoppingAdapter extends ArrayAdapter<String> {
         // Get text from his position
         String str = getItem(position);
         // Get the edit text produit
-        ViewHolder holder = new ViewHolder();
-        //EditText editText;
+        ViewHolderShopping holder = new ViewHolderShopping();
+        //EditText textView;
         //Button button;
 
         // Bind item with item view
@@ -52,14 +48,9 @@ public class ShoppingAdapter extends ArrayAdapter<String> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_shopping, parent, false);
             holder.editText = convertView.findViewById(R.id.idItemShoppingTextProduit);
             holder.button = convertView.findViewById(R.id.idItemShoppingButton);
-            //convertView.setTag(R.id.idItemShoppingTextProduit, editText);
-            //convertView.setTag(R.id.idItemShoppingButton, button);
             convertView.setTag(holder);
-            //convertView.setTag(button);
         } else {
-            holder = (ViewHolder) convertView.getTag();
-            //editText = (EditText) convertView.getTag(R.id.idItemShoppingTextProduit);
-            //button = (Button) convertView.getTag(R.id.idItemShoppingButton);
+            holder = (ViewHolderShopping) convertView.getTag();
         }
 
 
@@ -79,9 +70,6 @@ public class ShoppingAdapter extends ArrayAdapter<String> {
                     Log.i("position", String.valueOf(position));
                     list.set(position, s);
                     Log.e("Liste", list.toString());
-                    //finalEditText.requestFocus();
-
-                    //listView.setAdapter(adapter);
                 }
             }
         });

@@ -6,27 +6,31 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import fr.univ_smb.cheapsprint.R;
-import fr.univ_smb.cheapsprint.adapters.ShoppingListsAdapter;
+import fr.univ_smb.cheapsprint.adapters.ShoppingDetailsAdapter;
 import fr.univ_smb.cheapsprint.utilities.FileSaveHandler;
 
-public class MyListsActivity extends Activity {
+public class ShoppingDetailsActivitiy extends Activity {
     private ListView listView;
     private ArrayList<String> list;
+    private ShoppingDetailsAdapter adapter;
+    private final Context context = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_lists);
-        listView = findViewById(R.id.idListsListView);
-        list = FileSaveHandler.ScanDirLists(this);
-        if (!list.isEmpty())
-            listView.setAdapter(new ShoppingListsAdapter(this, list,listView));
+        setContentView(R.layout.activity_shopping_details);
+        Bundle extras = getIntent().getExtras();
+        listView = findViewById(R.id.idDetailsListView);
+        list = new ArrayList<>();
+        list = extras.getStringArrayList("LISTE");
+        adapter = new ShoppingDetailsAdapter(this,list, listView);
+        listView.setAdapter(adapter);
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -38,8 +42,9 @@ public class MyListsActivity extends Activity {
         registerReceiver(broadcastReceiver,new IntentFilter("ENDACTIVITY"));
     }
 
-    public void btn_my_lists_quit(View view){
-        Intent intent = new Intent(this, MainActivity.class);
+    public void id_btn_retour_clicked(View view){
+        Intent intent = new Intent(this, ShoppingActivity.class);
+        intent.putExtra("LISTE",list);
         startActivity(intent);
     }
 }

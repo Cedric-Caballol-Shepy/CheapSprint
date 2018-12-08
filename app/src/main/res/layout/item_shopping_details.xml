@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TableLayout
+        android:id="@+id/idLayoutListElem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/idProduct"
+                android:layout_width="265dp"
+                android:layout_height="29dp"
+                android:hint="Nom du produit"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="122dp"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/idSearchPrice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:hint="Prix (€)"
+                android:textSize="15sp"
+                />
+
+
+        </TableRow>
+
+        <TextView
+            android:id="@+id/idSearchMagasin"
+            android:layout_height="29dp"
+            android:hint="Nom du magasin"
+            android:textSize="15sp"
+            />
+
+    </TableLayout>
+
+</android.support.constraint.ConstraintLayout>
