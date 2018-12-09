@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 
 import fr.univ_smb.cheapsprint.R;
 import fr.univ_smb.cheapsprint.adapters.ShoppingDetailsAdapter;
-import fr.univ_smb.cheapsprint.utilities.FileSaveHandler;
 
 public class ShoppingDetailsActivitiy extends Activity {
     private ListView listView;

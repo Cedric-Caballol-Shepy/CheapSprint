@@ -2,11 +2,7 @@ package fr.univ_smb.cheapsprint.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,8 +13,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import fr.univ_smb.cheapsprint.R;
 import fr.univ_smb.cheapsprint.adapters.CollaborativeAdapter;
@@ -31,7 +25,6 @@ public class CollaborativeActivity extends Activity {
     private AutoCompleteTextView magasin,nomProd; //TODO : si on a le temps, faire la logique d'auto-complétion par rapport aux entrées dans la BDD
     private EditText prix;
 
-    //https://stackoverflow.com/questions/4540754/dynamically-add-elements-to-a-listview-android
     //LIST OF ARRAY Product WHICH WILL SERVE AS LIST ITEMS
     ArrayList<Product> listItems=new ArrayList<Product>();
 

@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -23,7 +22,6 @@ import java.util.Locale;
 
 import fr.univ_smb.cheapsprint.R;
 import fr.univ_smb.cheapsprint.adapters.ShoppingAdapter;
-import fr.univ_smb.cheapsprint.tasks.ScanListTask;
 import fr.univ_smb.cheapsprint.utilities.FileSaveHandler;
 
 public class ShoppingActivity extends Activity {
