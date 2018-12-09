@@ -4,6 +4,7 @@ public class Product {
     private String name;
     private double price;
 
+    private Product(){}
     public Product(String name){
         this.name = name;
     }
@@ -12,11 +13,11 @@ public class Product {
         this.price = price;
     }
 
-    public void setPrice(double price){
-        this.price = price;
+    public String getName(){
+        return this.name;
     }
 
-    public Product findProduct(){
-        return null;
+    public double getPrice(){
+        return this.price;
     }
 }

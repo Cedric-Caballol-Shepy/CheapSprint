@@ -81,9 +81,8 @@ public class MainActivity extends Activity {
 
 
     public void btn_submit_clicked(View view) {
-        Toast.makeText(this, "Button not ready", Toast.LENGTH_SHORT).show();
-        /**Intent intent = new Intent(this, CollaborativeActivity.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this, CollaborativeActivity.class);
+        startActivity(intent);
     }
 
     public void btn_exit_clicked(View view) {
