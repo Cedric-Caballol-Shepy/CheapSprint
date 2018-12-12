@@ -1,57 +1,28 @@
 package fr.univ_smb.cheapsprint.tasks;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.JsonParser;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import static android.content.Context.MODE_PRIVATE;
+import fr.univ_smb.cheapsprint.activities.ShoppingDetailsActivitiy;
 
 public class ScanListTask extends AsyncTask<Void, Void, String> {
     private Context context;
     private String data;
-
+    private ShoppingDetailsActivitiy shoppingDetailsActivitiy;
     /**
      * Runs on the UI thread before {@link #doInBackground}.
      *
@@ -63,7 +34,11 @@ public class ScanListTask extends AsyncTask<Void, Void, String> {
         super.onPreExecute();
     }
 
-    public ScanListTask(Context context, String data){this.context = context; this.data = data;}
+    public ScanListTask(Context context, String data, ShoppingDetailsActivitiy shoppingDetailsActivitiy) {
+        this.context = context;
+        this.data = data;
+        this.shoppingDetailsActivitiy = shoppingDetailsActivitiy;
+    }
     /**
      * Override this method to perform a computation on a background thread. The
      * specified parameters are the parameters passed to {@link #execute}
@@ -82,7 +57,7 @@ public class ScanListTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         String response = null;
         try {
-            URL url = new URL("https://raw.githubusercontent.com/sirambd/application_android/master/plombierDbbJson.json");
+            URL url = new URL("http://80.211.56.41:8008/api/product?data=" + this.data);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             Log.i("AsyncTask","Envoie requete GET");
             //conn.setDefaultUseCaches(false);
@@ -95,7 +70,7 @@ public class ScanListTask extends AsyncTask<Void, Void, String> {
             response = convertStreamToString(in);
             Log.w("AsyncTask data receve",response);
             conn.disconnect();
-
+            return response;
         } catch (MalformedURLException e) {
             //e.printStackTrace();
             Log.e("INTERNET","MalformedURLException: "+e.getMessage());
@@ -127,8 +102,11 @@ public class ScanListTask extends AsyncTask<Void, Void, String> {
      */
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        if(result != null)
+        if (result != null) {
             Log.e("resultAsync", result);
+            this.shoppingDetailsActivitiy.setListResultJson((JsonArray) new JsonParser().parse(result));
+            this.shoppingDetailsActivitiy.updateList();
+        }
     }
 
     /**

@@ -153,10 +153,6 @@ public class ShoppingActivity extends Activity {
 
     public void btn_shopping_details_clicked(View view){
         //TODO : 2 prochaines lignes à supprimer après tests, c'est pas ici qu'on veut ça mais dans ShoppingDetailsAdapter
-        /*
-        String jsonList = new Gson().toJson(list);
-       (new ScanListTask(context, jsonList)).execute();
-       */
 
         Intent intent = new Intent(this, ShoppingDetailsActivitiy.class);
         intent.putExtra("LISTE", list);
