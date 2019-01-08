@@ -22,7 +22,7 @@ public class CollaborativeActivity extends Activity {
 
     private ListView listView;
 
-    private AutoCompleteTextView magasin,nomProd; //TODO : si on a le temps, faire la logique d'auto-complétion par rapport aux entrées dans la BDD
+    private AutoCompleteTextView magasin,nomProd, ville; //TODO : si on a le temps, faire la logique d'auto-complétion par rapport aux entrées dans la BDD
     private EditText prix;
 
     //LIST OF ARRAY Product WHICH WILL SERVE AS LIST ITEMS
@@ -38,6 +38,7 @@ public class CollaborativeActivity extends Activity {
         setContentView(R.layout.activity_collaborative);
         prix = findViewById(R.id.idPrice);
         magasin = findViewById(R.id.idCollabSearchShop);
+        ville = findViewById(R.id.idCollabSearchCity);
         nomProd = findViewById(R.id.idSearchProduct);
         listView = findViewById(R.id.idListViewAdded);
         adapter = new CollaborativeAdapter(this, listItems,listView);
@@ -77,7 +78,7 @@ public class CollaborativeActivity extends Activity {
     }
 
     public void submit_product_to_database(View v){
-        if(!listItems.isEmpty() && !magasin.getText().toString().equals("")){
+        if(!listItems.isEmpty() && !magasin.getText().toString().equals("") && !ville.getText().toString().equals("")){
             //TODO : ajouter la liste de Product "listItems" dans la BDD
         }
         else{
