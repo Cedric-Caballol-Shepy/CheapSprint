@@ -34,6 +34,7 @@ public class MyReceiverBroadcast extends BroadcastReceiver {
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent("ENDACTIVITY");
                             context.sendBroadcast(intent);
+                            android.os.Process.killProcess(android.os.Process.myPid());
                         }
                     })
                     .show();

@@ -1,6 +1,8 @@
 package fr.univ_smb.cheapsprint.activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationManager;
@@ -19,6 +21,15 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (action.equals("ENDACTIVITY"))
+                    finish();
+            }
+        };
+        registerReceiver(broadcastReceiver, new IntentFilter("ENDACTIVITY"));
     }
 
     @Override
@@ -45,10 +56,9 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, ShoppingActivity.class);
         intent.putExtra("NOMLISTE", "");
         startActivity(intent);
-
     }
 
-    public void btn_my_lists_clicked(View view){
+    public void btn_my_lists_clicked(View view) {
         Intent intent = new Intent(this, MyListsActivity.class);
         startActivity(intent);
     }
@@ -62,7 +72,7 @@ public class MainActivity extends Activity {
     public void btn_tools_clicked(View view) {
         Toast.makeText(this, "Button not ready", Toast.LENGTH_SHORT).show();
         /**Intent intent = new Intent(this, .class);
-        startActivity(intent);*/
+         startActivity(intent);*/
     }
 
 
@@ -75,5 +85,7 @@ public class MainActivity extends Activity {
         moveTaskToBack(true);
         Intent intent = new Intent("ENDACTIVITY");
         sendBroadcast(intent);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
     }
 }
