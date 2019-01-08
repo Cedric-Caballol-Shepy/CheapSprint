@@ -3,4 +3,5 @@
     <string name="btn_scan_article">Scanner un article</string>
     <string name="btn_shopping">Dire une liste</string>
     <string name="btn_config">Paramètre</string>
+    <string name="author"><![CDATA[Créée par Abdourahamane BOINAIDI & Cédric CABALLOL]]></string>
 </resources>

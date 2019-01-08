@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="blueBackground">#273951</color>
+    <color name="blueBackground1">#273951</color>
+    <color name="blueBackground">#183f5f</color>
     <color name="blueBackgroundButton">#1e2b3c</color>
 </resources>

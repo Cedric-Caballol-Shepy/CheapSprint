@@ -40,7 +40,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,13 +49,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activities.CollaborativeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ScanListActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.SplashActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ShoppingActivity"

@@ -57,6 +57,7 @@ public class ScanListTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
         String response = null;
         try {
+            Log.i("asyncdatatest", this.data);
             URL url = new URL("http://80.211.56.41:8008/api/product?data=" + this.data);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             Log.i("AsyncTask","Envoie requete GET");

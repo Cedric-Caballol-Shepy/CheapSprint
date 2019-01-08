@@ -14,21 +14,11 @@ import fr.univ_smb.cheapsprint.receivers.MyReceiverBroadcast;
 
 public class MainActivity extends Activity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    private MyReceiverBroadcast myReceiverBroadcast;
-    private IntentFilter intentFilterNetWork,
-            intentFilterGPS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Listen Network and GPS
-        myReceiverBroadcast = new MyReceiverBroadcast();
-        intentFilterNetWork = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        intentFilterGPS = new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION);
-        registerReceiver(myReceiverBroadcast, intentFilterNetWork);
-        registerReceiver(myReceiverBroadcast, intentFilterGPS);
     }
 
     @Override
@@ -55,10 +45,6 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(this, ShoppingActivity.class);
         intent.putExtra("NOMLISTE", "");
         startActivity(intent);
-        /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-        }*/
 
     }
 
@@ -87,7 +73,7 @@ public class MainActivity extends Activity {
 
     public void btn_exit_clicked(View view) {
         moveTaskToBack(true);
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
+        Intent intent = new Intent("ENDACTIVITY");
+        sendBroadcast(intent);
     }
 }

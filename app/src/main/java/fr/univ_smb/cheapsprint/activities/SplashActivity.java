@@ -1,13 +1,20 @@
 package fr.univ_smb.cheapsprint.activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import fr.univ_smb.cheapsprint.R;
+import fr.univ_smb.cheapsprint.receivers.MyReceiverBroadcast;
 
 public class SplashActivity extends Activity {
-
+    private MyReceiverBroadcast myReceiverBroadcast;
+    private IntentFilter intentFilterNetWork;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +30,21 @@ public class SplashActivity extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(i);
+
+                    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+                        @Override
+                        public void onReceive(Context context, Intent intent) {
+                            String action = intent.getAction();
+                            if (action.equals("ENDACTIVITY"))
+                                finish();
+                        }
+                    };
+                    registerReceiver(broadcastReceiver, new IntentFilter("ENDACTIVITY"));
+
+                    // Listen Network
+                    myReceiverBroadcast = new MyReceiverBroadcast();
+                    intentFilterNetWork = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+                    registerReceiver(myReceiverBroadcast, intentFilterNetWork);
                 }
 
             }
