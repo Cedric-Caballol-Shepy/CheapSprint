@@ -57,8 +57,6 @@ public class ShoppingActivity extends Activity {
         }
         adapter = new ShoppingAdapter(this,list, listView);
         listView.setAdapter(adapter);
-        Intent intent = new Intent("ENDACTIVITY");
-        sendBroadcast(intent);
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
