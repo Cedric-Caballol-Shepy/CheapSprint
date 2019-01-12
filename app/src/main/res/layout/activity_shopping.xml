@@ -29,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@color/blueBackground"
         android:orientation="horizontal">
 
         <ImageButton
@@ -36,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="79dp"
             android:layout_weight="0.7"
-            android:background="@android:color/white"
+            android:background="@color/blueBackground"
             android:onClick="btn_shopping_micro_clicked"
             android:scaleType="fitCenter"
             android:src="@drawable/microphone" />
@@ -45,17 +46,23 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
             android:layout_weight="0.7"
+            android:background="@drawable/stylebutton1"
             android:onClick="btn_shopping_details_clicked"
-            android:text="Détails" />
+            android:text="Détails"
+            android:textColor="@color/light_blue" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
             android:layout_weight="0.65"
+            android:background="@drawable/stylebutton1"
             android:onClick="btn_shopping_save_clicked"
-            android:text="Sauvegarder" />
+            android:text="Sauvegarder"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 

@@ -66,6 +66,7 @@ public class ShoppingDetailsActivitiy extends Activity {
         Intent intent = new Intent(this, ShoppingActivity.class);
         intent.putExtra("LISTE",list);
         startActivity(intent);
+        finish();
     }
 
     public void updateList() {

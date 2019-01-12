@@ -18,11 +18,13 @@ public class MyReceiverBroadcast extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        //TODO Display a dialog when not network or gps disabled
-        if (checkNetwork(context)){
+        if (checkNetwork(context)){ // If network is enabled
             Toast.makeText(context, "Network enabled", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(context, MainActivity.class);
             context.startActivity(i);
+            // Destroy splash activity
+            Intent finishIntent = new Intent("ENDACTIVITY");
+            context.sendBroadcast(finishIntent);
         }
         else {
             Toast.makeText(context, "Network disabled", Toast.LENGTH_SHORT).show();

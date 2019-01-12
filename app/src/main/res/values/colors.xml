@@ -6,4 +6,6 @@
     <color name="blueBackground1">#273951</color>
     <color name="blueBackground">#183f5f</color>
     <color name="blueBackgroundButton">#1e2b3c</color>
+    <color name="yellow">#17eaea</color>
+    <color name="light_blue">#17eaea</color>
 </resources>

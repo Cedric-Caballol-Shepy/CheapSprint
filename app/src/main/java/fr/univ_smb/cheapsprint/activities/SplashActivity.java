@@ -50,9 +50,5 @@ public class SplashActivity extends Activity {
             }
         };
         chrono.start();
-        //Animation
-        //Animation animation = AnimationUtils.loadAnimation(this, )
-        //ImageView image = (ImageView) findViewById(R.id.imageViewSplash);
-        //image.animate().rotationY(360).setDuration(2000).start();
     }
 }
